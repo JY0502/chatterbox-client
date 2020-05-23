@@ -3,14 +3,23 @@ var FormView = {
   $form: $('form'),
 
   initialize: function() {
+    FormView.$form.off('submit');
     FormView.$form.on('submit', FormView.handleSubmit);
   },
 
   handleSubmit: function(event) {
     // Stop the browser from submitting the form
     event.preventDefault();
-    
-    console.log('click!');
+
+    let msgObj = {};
+    msgObj.username = App.username;
+    //TODO
+    msgObj.roomname = 'lobby';
+    msgObj.text = $('#send').find('input[name="message"]').val();
+    console.log(msgObj);
+
+    Parse.create(msgObj, ()=>{});
+    // console.log('click!');
   },
 
   setStatus: function(active) {
